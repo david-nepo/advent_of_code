@@ -52,7 +52,12 @@ def solve_part2(input_seq: str = None) -> int:
     return sum(matching_digits)
 
 
-if __name__ == "__main__":
+def main():
+    """Main script logic."""
 
     print(f"Part 1: {solve_part1()}")
     print(f"Part 2: {solve_part2()}")
+
+
+if __name__ == "__main__":
+    main()
