@@ -64,8 +64,8 @@ def contains_recurring_pair_no_overlap(input_string: str) -> bool:
 
 def contains_sandwiched_letter(input_string: str) -> bool:
     """
-    Checks if string contains at least one letter which 
-    repeats with exactly one letter between them.
+    Checks if string contains at least one letter 
+    which repeats with exactly one letter between them.
     """
 
     for i in range(len(input_string)):
@@ -84,8 +84,8 @@ def solve_part2():
     total = 0
     for string in data:
         if (
-            contains_recurring_pair_no_overlap(string) and
-            contains_sandwiched_letter(string)
+            contains_recurring_pair_no_overlap(string) 
+            and contains_sandwiched_letter(string)
         ):
             total += 1
 
