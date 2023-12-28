@@ -1,17 +1,18 @@
 """Test for Day 1."""
 
+import pytest
+
+
 from day_1 import (
     change_frequency
 )
 
 
-def test_change_frequency_positive():
-    """Tests change_frequency when positive."""
+@pytest.mark.parametrize(('test_input1, test_input2, expected'),
+                         [(0, '+3', 3),
+                          (0, '-34', -34),
+                          (6, '+26', 32)])
+def test_change_frequency(test_input1, test_input2, expected):
+    """Tests change_frequency."""
 
-    assert change_frequency(0, '+3') == 3
-
-
-def test_change_frequency_negative():
-    """Tests change_frequency when negative."""
-
-    assert change_frequency(0, '-34') == -34
+    assert change_frequency(test_input1, test_input2) == expected

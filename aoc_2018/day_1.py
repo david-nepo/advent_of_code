@@ -23,10 +23,30 @@ def solve_part1() -> int:
     return new_freq
 
 
+def solve_part2() -> int:
+    """Solves part 2."""
+
+    with open('day_1_input.txt', 'r', encoding='utf-8') as f:
+        puzzle_input = [row.strip() for row in f.readlines()]
+
+    new_freq = 0
+    freq_list = []
+
+    while True:
+        for num in puzzle_input:
+            new_freq = change_frequency(new_freq, num)
+
+            if new_freq in freq_list:
+                return new_freq
+
+            freq_list.append(new_freq)
+
+
 def main():
     """Main script logic."""
 
     print(f"Part 1: {solve_part1()}")
+    print(f"Part 2: {solve_part2()}")
 
 
 if __name__ == "__main__":
