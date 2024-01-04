@@ -8,30 +8,6 @@ def get_input_data(filename: str) -> list[int]:
         return [int(char) for char in f.readline().split(',')]
 
 
-def solve_part1() -> int:
-    """Solves part 1."""
-
-    puzzle_input = get_input_data('inputs_day_2.txt')
-    puzzle_input[1] = 12
-    puzzle_input[2] = 2
-
-    for i in range(0, len(puzzle_input)-4, 4):
-        subset = puzzle_input[i:i+4]
-
-        if subset[0] == 1:
-            puzzle_input[subset[3]] = (
-                puzzle_input[subset[1]] + puzzle_input[subset[2]])
-
-        if subset[0] == 2:
-            puzzle_input[subset[3]] = (
-                puzzle_input[subset[1]] * puzzle_input[subset[2]])
-
-        if subset[0] == 99:
-            break
-
-    return puzzle_input[0]
-
-
 def calculate_program_output(original_input: list[int], noun_val: int, verb_val: int) -> int:
     """Calculates program output."""
 
@@ -55,10 +31,18 @@ def calculate_program_output(original_input: list[int], noun_val: int, verb_val:
     return original_input[0]
 
 
-def solve_part2() -> int:
+def solve_part1(filename: str) -> int:
+    """Solves part 1."""
+
+    puzzle_input = get_input_data(filename)
+
+    return calculate_program_output(puzzle_input.copy(), 12, 2)
+
+
+def solve_part2(filename: str) -> int | None:
     """Solves part 2."""
 
-    puzzle_input = get_input_data('inputs_day_2.txt')
+    puzzle_input = get_input_data(filename)
 
     noun_vals = list(range(100))
     verb_vals = list(range(100))
@@ -74,12 +58,14 @@ def solve_part2() -> int:
         if result == 19690720:
             return 100 * noun + verb
 
+    return None
+
 
 def main():
     """Main script logic."""
 
-    print(f"Part 1: {solve_part1()}")
-    print(f"Part 2: {solve_part2()}")
+    print(f"Part 1: {solve_part1('inputs_day_2.txt')}")
+    print(f"Part 2: {solve_part2('inputs_day_2.txt')}")
 
 
 if __name__ == "__main__":
