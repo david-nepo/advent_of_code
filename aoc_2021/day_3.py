@@ -1,6 +1,5 @@
 """Day 3: Binary Diagnostic."""
 
-
 SMALL_INPUT_FILE = 'input_small_day_3.txt'
 FULL_INPUT_FILE = 'input_day_3.txt'
 
