@@ -53,5 +53,58 @@ def solve_part1(filename: str) -> int:
     return gamma_dec * epsilon_dec
 
 
+def solve_part2(filename: str) -> int:
+    """Solves Part 2."""
+
+    diagnostic_report = get_input(filename)
+    digits_at_each_bit = get_digits_at_each_bit(diagnostic_report)
+
+    for i in range(len(digits_at_each_bit)):
+
+        if i == 0:
+            count = get_digit_counts(digits_at_each_bit[i])
+            diagnostic_report = [
+                num for num in diagnostic_report if num[i] == str(count.index(max(count)))]
+
+        else:
+            digits_at_each_bit = get_digits_at_each_bit(diagnostic_report)
+            count = get_digit_counts(digits_at_each_bit[i])
+
+            if count[0] == count[1]:
+                diagnostic_report = [
+                    num for num in diagnostic_report if num[i] == '1']
+                oxygen_generator_rating = int(diagnostic_report[0], 2)
+                break
+
+            diagnostic_report = [
+                num for num in diagnostic_report if num[i] == str(count.index(max(count)))]
+
+    diagnostic_report = get_input(filename)
+    digits_at_each_bit = get_digits_at_each_bit(diagnostic_report)
+
+    for i in range(len(digits_at_each_bit)):
+
+        if i == 0:
+            count = get_digit_counts(digits_at_each_bit[i])
+            diagnostic_report = [
+                num for num in diagnostic_report if num[i] == str(count.index(min(count)))]
+
+        else:
+            digits_at_each_bit = get_digits_at_each_bit(diagnostic_report)
+            count = get_digit_counts(digits_at_each_bit[i])
+
+            if count[0] == count[1]:
+                diagnostic_report = [
+                    num for num in diagnostic_report if num[i] == '0']
+                co2_scrubber_rating = int(diagnostic_report[0], 2)
+                break
+
+            diagnostic_report = [
+                num for num in diagnostic_report if num[i] == str(count.index(min(count)))]
+
+    return oxygen_generator_rating * co2_scrubber_rating
+
+
 if __name__ == "__main__":
     print(f"Part 1: {solve_part1(FULL_INPUT_FILE)}")
+    print(f"Part 2: {solve_part2(FULL_INPUT_FILE)}")
