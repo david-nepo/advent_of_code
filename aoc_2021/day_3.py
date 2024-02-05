@@ -53,54 +53,68 @@ def solve_part1(filename: str) -> int:
     return gamma_dec * epsilon_dec
 
 
+def get_oxygen_generator_rating(bin_list: list[str], digit_list: list[str]) -> int:
+    """Calculates oxygen generator rating."""
+
+    for i in range(len(digit_list)):
+
+        if i == 0:
+            count = get_digit_counts(digit_list[i])
+            bin_list = [
+                num for num in bin_list if num[i] == str(count.index(max(count)))]
+
+        digit_list = get_digits_at_each_bit(bin_list)
+        count = get_digit_counts(digit_list[i])
+
+        if count[0] == count[1]:
+            bin_list = [
+                num for num in bin_list if num[i] == '1']
+            oxygen_generator_rating = int(bin_list[0], 2)
+            break
+
+        bin_list = [
+            num for num in bin_list if num[i] == str(count.index(max(count)))]
+
+    return oxygen_generator_rating
+
+
+def get_co2_scrubber_rating(bin_list: list[str], digit_list: list[str]) -> int:
+    """Calculates CO2 scrubber rating."""
+
+    for i in range(len(digit_list)):
+
+        if i == 0:
+            count = get_digit_counts(digit_list[i])
+            bin_list = [
+                num for num in bin_list if num[i] == str(count.index(min(count)))]
+
+        else:
+            digit_list = get_digits_at_each_bit(bin_list)
+            count = get_digit_counts(digit_list[i])
+
+            if count[0] == count[1]:
+                bin_list = [
+                    num for num in bin_list if num[i] == '0']
+                co2_scrubber_rating = int(bin_list[0], 2)
+                break
+
+            bin_list = [
+                num for num in bin_list if num[i] == str(count.index(min(count)))]
+
+    return co2_scrubber_rating
+
+
 def solve_part2(filename: str) -> int:
     """Solves Part 2."""
 
     diagnostic_report = get_input(filename)
     digits_at_each_bit = get_digits_at_each_bit(diagnostic_report)
 
-    for i in range(len(digits_at_each_bit)):
+    oxygen_generator_rating = get_oxygen_generator_rating(
+        diagnostic_report, digits_at_each_bit)
 
-        if i == 0:
-            count = get_digit_counts(digits_at_each_bit[i])
-            diagnostic_report = [
-                num for num in diagnostic_report if num[i] == str(count.index(max(count)))]
-
-        else:
-            digits_at_each_bit = get_digits_at_each_bit(diagnostic_report)
-            count = get_digit_counts(digits_at_each_bit[i])
-
-            if count[0] == count[1]:
-                diagnostic_report = [
-                    num for num in diagnostic_report if num[i] == '1']
-                oxygen_generator_rating = int(diagnostic_report[0], 2)
-                break
-
-            diagnostic_report = [
-                num for num in diagnostic_report if num[i] == str(count.index(max(count)))]
-
-    diagnostic_report = get_input(filename)
-    digits_at_each_bit = get_digits_at_each_bit(diagnostic_report)
-
-    for i in range(len(digits_at_each_bit)):
-
-        if i == 0:
-            count = get_digit_counts(digits_at_each_bit[i])
-            diagnostic_report = [
-                num for num in diagnostic_report if num[i] == str(count.index(min(count)))]
-
-        else:
-            digits_at_each_bit = get_digits_at_each_bit(diagnostic_report)
-            count = get_digit_counts(digits_at_each_bit[i])
-
-            if count[0] == count[1]:
-                diagnostic_report = [
-                    num for num in diagnostic_report if num[i] == '0']
-                co2_scrubber_rating = int(diagnostic_report[0], 2)
-                break
-
-            diagnostic_report = [
-                num for num in diagnostic_report if num[i] == str(count.index(min(count)))]
+    co2_scrubber_rating = get_co2_scrubber_rating(
+        diagnostic_report, digits_at_each_bit)
 
     return oxygen_generator_rating * co2_scrubber_rating
 
